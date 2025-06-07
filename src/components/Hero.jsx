@@ -2,22 +2,20 @@ import heroImg1 from "../assets/Hero/2.png";
 import heroImg2 from "../assets/Hero/lgFreeze.png";
 import heroImg3 from "../assets/Hero/applelaptop.png";
 import { EffectFade, Autoplay } from "swiper/modules";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
 
 const Hero = () => {
   return (
-    <div className="gadgetContainer lg:h-[600px] ">
+    <div className=" relative rounded-b-2xl overflow-hidden">
       <Swiper
-        effect={"fade"}
+        effect="fade"
         fadeEffect={{ crossFade: true }}
         slidesPerView={1}
-        spaceBetween={30}
         centeredSlides={true}
+        spaceBetween={30}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
@@ -25,29 +23,36 @@ const Hero = () => {
         modules={[Autoplay, EffectFade]}
         className="mySwiper"
       >
-        {/* slide 1 */}
-        <SwiperSlide>
-          <div className="shadow-lg h-[calc(100vh-200px)]">
-            <div className="h-full flex flex-col md:flex-row justify-between md:gap-2 gap-10 items-center">
-              <div className="flex-1 mt-10 md:mt-0 w-full md:w-auto">
+        {[heroImg1, heroImg2, heroImg3].map((img, i) => (
+          <SwiperSlide key={i}>
+            <div className="w-full h-[calc(100vh-100px)]  flex flex-col md:flex-row items-center justify-between gap-10 px-6 md:px-12 relative">
+              {/* Text Section */}
+              <div className="flex-1 dark:text-white z-10">
                 <p className="font-semibold text-[#FF497C] mb-3 text-center md:text-left">
-                  <span className="bg-[#FF497C]  mr-3 text-xl px-2 py-1 rounded-full">
+                  <span className="bg-[#FF497C] mr-3 text-xl px-2 py-1 rounded-full">
                     <i className="bx bxs-hot"></i>
                   </span>
                   Top Brands
                 </p>
 
-                <p className="xl:text-[50px] lg:text-[40px] md:text-[32px] text-[30px] font-bold text-center md:text-left">
-                  Discover the Future <br />
-                  of Electronics
-                </p>
-                <p className="font-medium text-black/60 md:text-lg text-center md:text-left">
-                  Stay ahead with the latest tech trends and innovations.
+                <h1 className="xl:text-[50px] lg:text-[40px] md:text-[32px] text-[28px] font-bold text-center md:text-left">
+                  {i === 0 && "Discover the Future of Electronics"}
+                  {i === 1 && "Your Trusted Source for Quality Gadgets"}
+                  {i === 2 && "Shop Smart, Shop TechWonders"}
+                </h1>
+
+                <p className="text-black/70 md:text-lg mt-3 text-center md:text-left">
+                  {i === 0 &&
+                    "Stay ahead with the latest tech trends and innovations."}
+                  {i === 1 &&
+                    "Explore a wide range of cutting-edge electronic devices."}
+                  {i === 2 &&
+                    "Find the perfect tech solutions for your lifestyle."}
                 </p>
 
                 <div className="flex justify-center md:justify-start">
-                  <button className="bg-[#FF497C] py-2 mt-5 px-3 rounded  font-semibold hover:bg-[#ab3154]">
-                    <span className="mr-3">
+                  <button className="bg-[#FF497C] py-2 mt-6 px-5 rounded font-semibold hover:bg-[#ab3154] text-white transition duration-300">
+                    <span className="mr-2">
                       <i className="bx bx-hive"></i>
                     </span>
                     Explore Now
@@ -55,98 +60,20 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* left */}
-              <div className="w-full md:max-h-[400px] h-[250px] flex-1 mb-10 md:mb-0">
+              {/* Image Section */}
+              <div className="flex-1 max-h-[500px] h-[300px] md:h-[450px] w-full z-10">
                 <img
-                  className="h-full object-cover w-full"
-                  src={heroImg1}
-                  alt=""
+                  src={img}
+                  className="h-full w-full object-contain transition-all duration-500 ease-in-out"
+                  alt="hero-img"
                 />
               </div>
+
+              {/* Background Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-white via-white/60 to-white/30 z-0"></div>
             </div>
-          </div>
-        </SwiperSlide>
-        {/* slide 2 */}
-        <SwiperSlide>
-          <div className="md:h-[500px] h-auto">
-            <div className="h-full flex flex-col md:flex-row justify-between md:gap-2 gap-10 items-center">
-              <div className="flex-1 mt-10 md:mt-0 w-full md:w-auto">
-                <p className="font-semibold text-[#FF497C] mb-3 text-center md:text-left">
-                  <span className="bg-[#FF497C]  mr-3 text-xl px-2 py-1 rounded-full">
-                    <i className="bx bxs-hot"></i>
-                  </span>
-                  Top Brands
-                </p>
-
-                <p className="xl:text-[50px] lg:text-[40px] md:text-[32px] text-[30px] font-bold text-center md:text-left">
-                  Your Trusted Source for <br />
-                  Quality Gadgets
-                </p>
-                <p className="font-medium text-black/60 md:text-lg text-center md:text-left">
-                  Explore a wide range of cutting-edge electronic devices
-                </p>
-
-                <div className="flex justify-center md:justify-start">
-                  <button className="bg-[#FF497C] py-2 mt-5 px-3 rounded  font-semibold hover:bg-[#ab3154]">
-                    <span className="mr-3">
-                      <i className="bx bx-hive"></i>
-                    </span>
-                    Explore Now
-                  </button>
-                </div>
-              </div>
-
-              {/* left */}
-              <div className="w-full md:max-h-[400px]  flex-1 mb-10 md:mb-0">
-                <img
-                  className="md:h-full h-[250px] object-cover w-full"
-                  src={heroImg2}
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
-        {/* slide 3 */}
-        <SwiperSlide>
-          <div className="md:h-[500px] h-auto">
-            <div className="h-full flex flex-col md:flex-row justify-between md:gap-2 gap-10 items-center">
-              <div className="flex-1 mt-10 md:mt-0 w-full md:w-auto">
-                <p className="font-semibold text-[#FF497C] mb-3 text-center md:text-left">
-                  <span className="bg-[#FF497C]  mr-3 text-xl px-2 py-1 rounded-full">
-                    <i className="bx bxs-hot"></i>
-                  </span>
-                  Top Brands
-                </p>
-
-                <p className="xl:text-[50px] lg:text-[40px] md:text-[32px] text-[30px] font-bold text-center md:text-left">
-                  Shop Smart, Shop <br /> TechWonders
-                </p>
-                <p className="font-medium text-black/60 md:text-lg text-center md:text-left">
-                  Find the perfect tech solutions for your lifestyle.
-                </p>
-
-                <div className="flex justify-center md:justify-start">
-                  <button className="bg-[#FF497C] py-2 mt-5 px-3 rounded text-white font-semibold hover:bg-[#ab3154]">
-                    <span className="mr-3">
-                      <i className="bx bx-hive"></i>
-                    </span>
-                    Explore Now
-                  </button>
-                </div>
-              </div>
-
-              {/* left */}
-              <div className="w-full max-h-[400px] flex-1 mb-10 md:mb-0">
-                <img
-                  className="h-full object-cover w-full"
-                  src={heroImg3}
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

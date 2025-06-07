@@ -2,6 +2,13 @@ import { createBrowserRouter } from "react-router-dom";
 import Root from "../layouts/Root";
 import HomePage from "../pages/HomePage";
 import AddProductPage from "../pages/AddProductPage";
+import MyCartPage from "../pages/MyCartPage";
+import ProductDetails from "../pages/ProductDetails";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
+import PrivateRoute from "./PrivateRoute";
+import Users from "../pages/Users";
+import UserUpdatePage from "../pages/UserUpdatePage";
 
 const router = createBrowserRouter([
   {
@@ -13,10 +20,72 @@ const router = createBrowserRouter([
         element: <HomePage></HomePage>,
       },
       {
-        path: '/product/add',
-        element: <AddProductPage></AddProductPage>
-      }
+        path: "/product/add/:id?/:update?",
+        element: (
+          <PrivateRoute>
+            <AddProductPage></AddProductPage>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) => {
+          if (params.id) {
+            return fetch(
+              `https://alphavibe-gadgets.web.app/productDetail/${params?.id}`
+            );
+          }
+        },
+      },
+      {
+        path: "/product/add",
+        element: (
+          <PrivateRoute>
+            <AddProductPage></AddProductPage>,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myCart",
+        element: (
+          <PrivateRoute>
+            <MyCartPage></MyCartPage>,
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/products/:id",
+        element: <ProductDetails></ProductDetails>,
+        loader: ({ params }) =>
+          fetch(
+            `https://alphavibe-gadgets.web.app/productDetail/${params?.id}`
+          ),
+      },
+      {
+        path: "/users",
+        element: (
+          <PrivateRoute>
+            <Users></Users>,
+          </PrivateRoute>
+        ),
+        loader: () => fetch("https://alphavibe-gadgets.web.app/users"),
+      },
+      {
+        path: "/userUpdate/:id",
+        element: (
+          <PrivateRoute>
+            <UserUpdatePage></UserUpdatePage>,
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`https://alphavibe-gadgets.web.app/updateUser/${params.id}`),
+      },
     ],
+  },
+  {
+    path: "/signIn",
+    element: <LoginPage></LoginPage>,
+  },
+  {
+    path: "/signUp",
+    element: <RegisterPage></RegisterPage>,
   },
 ]);
 

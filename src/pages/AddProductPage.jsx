@@ -1,35 +1,23 @@
-import { useEffect, useState } from "react";
-// import { baseURL } from "../utilitis/Url.js";
+import { useState } from "react";
 import toast from "react-hot-toast";
-// import Spinner from "../components/Spinner.jsx";
-import { useLoaderData, useParams } from "react-router-dom";
-// import useAuth from "../hooks/useAuth.jsx";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
-// import baseURL from '../utilitis/url.js'
-const AddProductPage = ({ update }) => {
-  //   const { user } = useAuth() || {};
+const AddProductPage = () => {
+  const { user } = useAuth() || {};
+  const nav = useNavigate();
   const data = useLoaderData();
-  const [editProduct, setEditProduct] = useState(data);
 
-  // const { id } = useParams()
-  // console.log(id)
-  // useEffect(() => {
-  //   fetch(`https://giga-gadgets-server-crud.vercel.app/${id}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data)
-  //       setEditProduct(data)
-  //     })
-  // }, [id])
+  const [editProduct] = useState(data);
 
-  //   const { email } = user;
-  const [selectedBrand, setSelectedBrand] = useState("Test");
+  const { update } = useParams();
+
+  const [selectedBrand, setSelectedBrand] = useState(editProduct?.brand);
 
   const handleChange = (e) => {
     setSelectedBrand(e.target.value);
   };
 
-  
   const handleAddProduct = (e) => {
     e.preventDefault();
 
@@ -40,9 +28,9 @@ const AddProductPage = ({ update }) => {
     const type = form.type.value;
     const rating = form.rating.value;
     const brand = form.brand.value;
-
-    const product = { name, image, price, type, rating, brand,  };
-    fetch("http://localhost:5000/products", {
+    const email = user?.email;
+    const product = { name, image, price, type, rating, brand, email };
+    fetch("https://alphavibe-gadgets.web.app/addProducts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,16 +39,17 @@ const AddProductPage = ({ update }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
           toast.success("Product Added", {
-            position: 'top-right'
+            position: "top-right",
+            className: "font-semibold text-lg",
           });
         }
+        nav('/myCart')
       });
   };
 
-  /*  const handleUpdate = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
 
     const form = e.target;
@@ -71,28 +60,31 @@ const AddProductPage = ({ update }) => {
     const rating = form.rating.value;
     const brand = form.brand.value;
 
-    const UpdateProduct = { name, image, price, type, rating, brand, email };
-    console.log(UpdateProduct);
+    const UpdateProduct = {
+      name,
+      image,
+      price,
+      type,
+      rating,
+      brand,
+      email: user?.email,
+    };
 
-    fetch(
-      `https://giga-gadgets-server-crud.vercel.app/products/${editProduct._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(UpdateProduct),
-      }
-    )
+    fetch(`https://alphavibe-gadgets.web.app/products/${editProduct._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(UpdateProduct),
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.modifiedCount) {
           toast.success("Update Successfully");
         }
       });
   };
- */
+
   return (
     <div className="gadgetContainer pt-10">
       <div className="shadow-lg p-5 border dark:bg-[#1a2641d5]">
@@ -110,9 +102,9 @@ const AddProductPage = ({ update }) => {
             </span>
           </p>
         </div>
+
         {/* form */}
-        {/* onSubmit={editProduct ? handleUpdate : handleAddProduct} */}
-        <form onSubmit={handleAddProduct}>
+        <form onSubmit={update ? handleUpdate : handleAddProduct}>
           <div className="flex gap-8 ">
             <div className="flex-1">
               <label className="block mb-2 dark:text-white" htmlFor="name">
@@ -137,7 +129,7 @@ const AddProductPage = ({ update }) => {
                 name="brand"
                 id="brand"
                 className="w-full p-2 border rounded-md focus:outline-[#FF497C]"
-                value={editProduct ? editProduct.brand : selectedBrand}
+                value={selectedBrand}
                 onChange={handleChange}
               >
                 <option value="Test">Test</option>
