@@ -8,7 +8,7 @@ const MyCartPage = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://alphavibe-gadgets.web.app/myProducts/${user.email}`)
+      fetch(`https://alpha-vibe-server.vercel.app/myProducts/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setProducts(data);

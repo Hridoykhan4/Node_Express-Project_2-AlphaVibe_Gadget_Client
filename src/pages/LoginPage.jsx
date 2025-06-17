@@ -19,11 +19,11 @@ const LoginPage = () => {
         const lastSignIn = result?.user?.metadata?.lastSignInTime;
         const info = { name, email, lastSignIn: lastSignIn };
 
-        fetch(`https://alphavibe-gadgets.web.app/users`)
+        fetch(`https://alpha-vibe-server.vercel.app/users`)
           .then((res) => res.json())
           .then((data) => {
             if (!data?.exists) {
-              fetch(`https://alphavibe-gadgets.web.app/users`, {
+              fetch(`https://alpha-vibe-server.vercel.app/users`, {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",
@@ -57,7 +57,7 @@ const LoginPage = () => {
         const lastSignInTime = res?.user?.metadata?.lastSignInTime;
         const logInfo = { email, lastSignInTime };
 
-        fetch(`https://alphavibe-gadgets.web.app/users`, {
+        fetch(`https://alpha-vibe-server.vercel.app/users`, {
           method: "PATCH",
           headers: {
             "content-type": "application/json",

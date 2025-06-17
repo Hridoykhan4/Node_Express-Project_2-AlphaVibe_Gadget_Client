@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         loader: ({ params }) => {
           if (params.id) {
             return fetch(
-              `https://alphavibe-gadgets.web.app/productDetail/${params?.id}`
+              `https://alpha-vibe-server.vercel.app/productDetail/${params?.id}`
             );
           }
         },
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         element: <ProductDetails></ProductDetails>,
         loader: ({ params }) =>
           fetch(
-            `https://alphavibe-gadgets.web.app/productDetail/${params?.id}`
+            `https://alpha-vibe-server.vercel.app/productDetail/${params?.id}`
           ),
       },
       {
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
             <Users></Users>,
           </PrivateRoute>
         ),
-        loader: () => fetch("https://alphavibe-gadgets.web.app/users"),
+        loader: () => fetch("https://alpha-vibe-server.vercel.app/users"),
       },
       {
         path: "/userUpdate/:id",
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://alphavibe-gadgets.web.app/updateUser/${params.id}`),
+          fetch(`https://alpha-vibe-server.vercel.app/updateUser/${params.id}`),
       },
     ],
   },

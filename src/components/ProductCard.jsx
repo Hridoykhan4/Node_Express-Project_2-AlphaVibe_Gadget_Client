@@ -21,7 +21,7 @@ const ProductCard = ({ item, products, p, myCard, setProducts }) => {
   };
 
   const handleDeleteOk = (id) => {
-    fetch(`https://alphavibe-gadgets.web.app/products/${id}`, {
+    fetch(`https://alpha-vibe-server.vercel.app/products/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

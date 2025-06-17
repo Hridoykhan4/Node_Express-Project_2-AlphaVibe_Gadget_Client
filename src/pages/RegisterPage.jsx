@@ -26,7 +26,7 @@ const RegisterPage = () => {
         const info = { name, email, lastSignIn: lastSignIn };
 
         setLoading(false);
-        fetch(`https://alphavibe-gadgets.web.app/users`, {
+        fetch(`https://alpha-vibe-server.vercel.app/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -78,12 +78,12 @@ const RegisterPage = () => {
             const lastSignIn = result?.user?.metadata?.lastSignInTime;
             const info = { name, email, lastSignIn: lastSignIn };
 
-            fetch(`https://alphavibe-gadgets.web.app/users/${email}`)
+            fetch(`https://alpha-vibe-server.vercel.app/users/${email}`)
               .then((res) => res.json())
               .then((data) => {
-                console.log(data);
+
                 if (!data.exists) {
-                  fetch(`https://alphavibe-gadgets.web.app/users`, {
+                  fetch(`https://alpha-vibe-server.vercel.app/users`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",

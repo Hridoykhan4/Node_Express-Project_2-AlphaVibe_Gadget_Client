@@ -6,7 +6,7 @@ const UserUpdatePage = () => {
   const handleUserNameUpdate = (e) => {
     e.preventDefault();
     const userName = e.target.name.value;
-    fetch(`https://alphavibe-gadgets.web.app/updateUser/${user?._id}`, {
+    fetch(`https://alpha-vibe-server.vercel.app/updateUser/${user?._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

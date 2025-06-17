@@ -18,7 +18,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-          `https://alphavibe-gadgets.web.app/myProducts/${user.email}`
+          `https://alpha-vibe-server.vercel.app/myProducts/${user.email}`
         );
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {

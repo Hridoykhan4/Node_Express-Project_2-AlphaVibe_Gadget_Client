@@ -2,7 +2,7 @@
 
 Welcome to **AlphaVibe Gadget**, a stylish, responsive, and feature-packed e-commerce web application built using modern React, Tailwind CSS, Firebase, and Vite.
 
-🌐 **Live Website**: [alphavibe-gadgets.web.app](https://alphavibe-gadgets.web.app/)
+🌐 **Live Website**: [alphavibe-gadgets.web.app](https://alpha-vibe-server.vercel.app/)
 
 ---
 

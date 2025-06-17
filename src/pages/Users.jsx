@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillDelete } from "react-icons/ai";
 import { FaPencil } from "react-icons/fa6";
@@ -6,11 +6,19 @@ import { Link, useLoaderData } from "react-router-dom";
 
 const Users = () => {
   const loadedUsers = useLoaderData() || [];
-
+  const [searchUser, setSearchUser] = useState("");
   const [users, setUsers] = useState(loadedUsers);
 
+  useEffect(() => {
+    fetch(`https://alpha-vibe-server.vercel.app/users?searchUser=${searchUser}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
+      });
+  }, [searchUser]);
+
   const handleDeleteUser = (userId) => {
-    fetch(`https://alphavibe-gadgets.web.app/user/${userId}`, {
+    fetch(`https://alpha-vibe-server.vercel.app/user/${userId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -35,6 +43,17 @@ const Users = () => {
           {users?.length}
         </span>
       </h2>
+
+      <div className="text-center my-3 ">
+        <input
+          onChange={(e) => setSearchUser(e.target.value)}
+          type="text"
+          name=""
+          id=""
+          placeholder="Search"
+          className="input max-w-sm mx-auto  input-primary py-4"
+        />
+      </div>
 
       <div className="overflow-x-auto bg-white dark:bg-base-400 rounded-xl shadow-lg transition-colors duration-300">
         <table className="table w-full ">

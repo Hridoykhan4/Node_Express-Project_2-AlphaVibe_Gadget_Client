@@ -30,7 +30,7 @@ const AddProductPage = () => {
     const brand = form.brand.value;
     const email = user?.email;
     const product = { name, image, price, type, rating, brand, email };
-    fetch("https://alphavibe-gadgets.web.app/addProducts", {
+    fetch("https://alpha-vibe-server.vercel.app/addProducts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const AddProductPage = () => {
       email: user?.email,
     };
 
-    fetch(`https://alphavibe-gadgets.web.app/products/${editProduct._id}`, {
+    fetch(`https://alpha-vibe-server.vercel.app/products/${editProduct._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
