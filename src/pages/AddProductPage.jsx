@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 const AddProductPage = () => {
   const { user } = useAuth() || {};
   const nav = useNavigate();
-  const data = useLoaderData();
+  const data = useLoaderData() || {};
 
   const [editProduct] = useState(data);
 
@@ -45,7 +45,7 @@ const AddProductPage = () => {
             className: "font-semibold text-lg",
           });
         }
-        nav('/myCart')
+        nav("/myCart");
       });
   };
 
@@ -60,7 +60,7 @@ const AddProductPage = () => {
     const rating = form.rating.value;
     const brand = form.brand.value;
 
-    const UpdateProduct = {
+    const updateProducts = {
       name,
       image,
       price,
@@ -75,12 +75,13 @@ const AddProductPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(UpdateProduct),
+      body: JSON.stringify(updateProducts),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {
           toast.success("Update Successfully");
+          nav("/myCart");
         }
       });
   };

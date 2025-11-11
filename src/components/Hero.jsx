@@ -21,13 +21,13 @@ const Hero = () => {
           disableOnInteraction: false,
         }}
         modules={[Autoplay, EffectFade]}
-        className="mySwiper"
+        className="mySwiper py-10"
       >
         {[heroImg1, heroImg2, heroImg3].map((img, i) => (
           <SwiperSlide key={i}>
             <div className="w-full h-[calc(100vh-100px)]  flex flex-col md:flex-row items-center justify-between gap-10 px-6 md:px-12 relative">
               {/* Text Section */}
-              <div className="flex-1 dark:text-white z-10">
+              <div className="flex-1 py-6 dark:text-white z-10">
                 <p className="font-semibold text-[#FF497C] mb-3 text-center md:text-left">
                   <span className="bg-[#FF497C] mr-3 text-xl px-2 py-1 rounded-full">
                     <i className="bx bxs-hot"></i>
@@ -41,7 +41,7 @@ const Hero = () => {
                   {i === 2 && "Shop Smart, Shop TechWonders"}
                 </h1>
 
-                <p className="text-black/70 md:text-lg mt-3 text-center md:text-left">
+                <p className="text-black/70 dark:text-white md:text-lg mt-3 text-center md:text-left">
                   {i === 0 &&
                     "Stay ahead with the latest tech trends and innovations."}
                   {i === 1 &&
@@ -70,7 +70,7 @@ const Hero = () => {
               </div>
 
               {/* Background Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-white via-white/60 to-white/30 z-0"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10  via-white/10 to-white/10 z-0"></div>
             </div>
           </SwiperSlide>
         ))}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
-const ProductCard = ({ item, products, p, myCard, setProducts }) => {
+const ProductCard = ({ products, p, myCard, setProducts }) => {
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
@@ -66,8 +66,8 @@ const ProductCard = ({ item, products, p, myCard, setProducts }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-8">
           <div className="bg-white dark:bg-black rounded-lg max-w-md w-full mx-auto shadow-lg overflow-hidden">
             <div className="p-6">
-              <p className="py-4 font-semibold text-black">
-                Are you Sure you want to delete the Product?
+              <p className="py-4 dark:text-white font-semibold text-black">
+                Are you Sure you want to delete the {p.name} ?
               </p>
               <div className="mt-6 text-right space-x-4">
                 <button
@@ -75,13 +75,13 @@ const ProductCard = ({ item, products, p, myCard, setProducts }) => {
                     handleDeleteOk(p._id);
                     setShowModal(false);
                   }}
-                  className="px-4 px-10 py-2 bg-[#FF497C] text-white rounded hover:bg-[#ab3154] transition duration-300"
+                  className="px-4 sm:px-10 py-2 bg-[#FF497C] text-white rounded hover:bg-[#ab3154] transition duration-300"
                 >
                   OK
                 </button>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 px-10 bg-[#FF497C] text-white rounded hover:bg-[#ab3154] transition duration-300"
+                  className="px-4 py-2 sm:px-10 bg-[#FF497C] text-white rounded hover:bg-[#ab3154] transition duration-300"
                 >
                   Close
                 </button>

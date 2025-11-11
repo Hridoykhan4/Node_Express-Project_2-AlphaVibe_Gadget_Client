@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         path: "/product/add",
         element: (
           <PrivateRoute>
-            <AddProductPage></AddProductPage>,
+            <AddProductPage></AddProductPage>
           </PrivateRoute>
         ),
       },
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         path: "/myCart",
         element: (
           <PrivateRoute>
-            <MyCartPage></MyCartPage>,
+            <MyCartPage></MyCartPage>
           </PrivateRoute>
         ),
       },
@@ -57,21 +57,22 @@ const router = createBrowserRouter([
           fetch(
             `https://alpha-vibe-server.vercel.app/productDetail/${params?.id}`
           ),
+        hydrateFallbackElement: <p>Loading ... </p>,
       },
       {
         path: "/users",
         element: (
           <PrivateRoute>
-            <Users></Users>,
+            <Users></Users>
           </PrivateRoute>
         ),
-        loader: () => fetch("https://alpha-vibe-server.vercel.app/users"),
+        loader: () => fetch("https://alpha-vibe-server.vercel.app/users") || [],
       },
       {
         path: "/userUpdate/:id",
         element: (
           <PrivateRoute>
-            <UserUpdatePage></UserUpdatePage>,
+            <UserUpdatePage></UserUpdatePage>
           </PrivateRoute>
         ),
         loader: ({ params }) =>

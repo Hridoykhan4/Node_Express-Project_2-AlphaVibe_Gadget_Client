@@ -7,7 +7,7 @@ import { Link, useLoaderData } from "react-router-dom";
 const Users = () => {
   const loadedUsers = useLoaderData() || [];
   const [searchUser, setSearchUser] = useState("");
-  const [users, setUsers] = useState(loadedUsers);
+  const [users, setUsers] = useState(loadedUsers || []);
 
   useEffect(() => {
     fetch(`https://alpha-vibe-server.vercel.app/users?searchUser=${searchUser}`)
@@ -55,7 +55,7 @@ const Users = () => {
         />
       </div>
 
-      <div className="overflow-x-auto bg-white dark:bg-base-400 rounded-xl shadow-lg transition-colors duration-300">
+      <div className="overflow-x-auto bg-white dark:bg-slate-900 dark:bg-base-400 rounded-xl shadow-lg transition-colors duration-300">
         <table className="table w-full ">
           <thead className="bg-blue-600 text-white dark:bg-blue-700">
             <tr>

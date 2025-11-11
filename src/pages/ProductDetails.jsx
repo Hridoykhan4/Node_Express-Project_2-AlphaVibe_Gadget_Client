@@ -1,11 +1,11 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
-  const product = useLoaderData();
-
+  const product = useLoaderData() || {};
+  const navigate = useNavigate();
   return (
     <div className="pb-10 gadgetContainer">
-      <div className="max-w-4xl mx-auto mt-10 bg-white border border-gray-200 rounded-lg shadow-lg p-6">
+      <div className="max-w-4xl mx-auto mt-10 bg-white dark:bg-slate-900 dark:text-white border border-gray-200 rounded-lg shadow-lg p-6">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-1/2">
             <img
@@ -16,7 +16,7 @@ const ProductDetails = () => {
           </div>
 
           <div className="w-full lg:w-1/2">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
+            <h1 className="text-3xl dark:text-white font-bold text-gray-800 mb-4">
               {product.name}
             </h1>
 
@@ -24,31 +24,30 @@ const ProductDetails = () => {
               <span className="text-yellow-500 text-lg font-semibold">
                 Rating:
               </span>
-              <span className="text-gray-800 font-medium">
+              <span className="text-gray-800 dark:text-white font-medium">
                 {product.rating}
               </span>
             </div>
 
-            <p className="text-gray-700 mb-2">Brand: {product.brand}</p>
-            <p className="text-gray-700 mb-2">Email: {product.email}</p>
+            <p className="text-gray-700 dark:text-white mb-2">
+              Brand: {product.brand}
+            </p>
+            <p className="text-gray-700 dark:text-white mb-2">
+              Email: {product.email}
+            </p>
             <p className="text-pink-500 font-medium mb-4">
               Type: {product.type}
             </p>
 
-            <p className="text-2xl font-bold text-gray-900 mb-6">
+            <p className="text-2xl font-bold dark:text-white text-gray-900 mb-6">
               ${product.price}
             </p>
-
-            <div className="flex flex-wrap gap-4">
-              <button className="px-6 btn py-2 text-white bg-pink-500 rounded-lg hover:bg-pink-600 transition">
-                Add to Cart
-              </button>
-
-              {/*    <button className="px-6 py-2 text-gray-600 border border-gray-300 rounded-lg hover:text-gray-900 hover:border-gray-500 transition">
-                Add to Wishlist
-              </button>
- */}
-            </div>
+            <button
+              className="btn btn-wide btn-secondary"
+              onClick={() => navigate(-1)}
+            >
+              Back
+            </button>
           </div>
         </div>
       </div>

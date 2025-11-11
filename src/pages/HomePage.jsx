@@ -40,13 +40,15 @@ const HomePage = () => {
     <section>
       <Hero />
 
-      <h2 className="text-center text-2xl font-semibold mt-8">My Products</h2>
+      <h2 className="text-center text-2xl font-semibold mt-8 mb-2">
+        My Products
+      </h2>
       <div className="gadgetContainer pt-2 px-4 md:px-8">
         {loading ? (
           <p className="text-center text-lg font-medium text-blue-500 animate-pulse">
             Loading your products...
           </p>
-        ) : products.length > 0 && user ? (
+        ) : products.length > 0 ? (
           <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
             {products.map((p, index) => (
               <ProductCard
@@ -68,9 +70,15 @@ const HomePage = () => {
                 Log in First
               </Link>
             )}
-            <p className="text-center text-gray-500 text-sm">
-              You have no products yet.
-            </p>
+            {loading ||
+              (!user && (
+                <p className="text-center dark:text-white text-gray-500 text-sm">
+                  You have no products yet.{" "}
+                  <Link className="link link-accent" to="/product/add">
+                    Add Product
+                  </Link>
+                </p>
+              ))}
           </div>
         )}
       </div>

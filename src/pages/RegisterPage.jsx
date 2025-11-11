@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import signUp from "../assets/signUp.jpg";
 import logo from "../assets/logo.png";
@@ -81,7 +82,6 @@ const RegisterPage = () => {
             fetch(`https://alpha-vibe-server.vercel.app/users/${email}`)
               .then((res) => res.json())
               .then((data) => {
-
                 if (!data.exists) {
                   fetch(`https://alpha-vibe-server.vercel.app/users`, {
                     method: "POST",

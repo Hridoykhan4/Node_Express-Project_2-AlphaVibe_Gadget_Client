@@ -41,6 +41,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
       <li>
         <NavLink
           to="/product/add"
+          end
           className={({ isActive, isPending }) =>
             isPending
               ? "pending"
@@ -57,7 +58,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
           to="/myCart"
           className={({ isActive, isPending }) =>
             isPending
-              ? "pending"
+              ? "loading loading-ball"
               : isActive
               ? "text-[#FF497C] border-b-4 border-[#FF497C]"
               : "hover:text-[#FF497C]"
@@ -71,13 +72,15 @@ const Navbar = ({ setDarkMode, darkMode }) => {
           to="/users"
           className={({ isActive, isPending }) =>
             isPending
-              ? "pending"
+              ? ""
               : isActive
               ? "text-[#FF497C] border-b-4 border-[#FF497C]"
               : "hover:text-[#FF497C]"
           }
         >
-          <span>Users</span>
+          {({ isPending }) => (
+            <span>Users {isPending ? <span className="loading"></span> : ""}</span>
+          )}
         </NavLink>
       </li>
     </>
@@ -108,7 +111,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
               className=" p-1 mr-3 flex items-center"
             >
               <img
-                className="md:w-full   w-10 object-cover"
+                className="md:w-full  w-10 object-cover"
                 src={darkMode ? lightImg : darkImg}
                 alt=""
               />
@@ -121,7 +124,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
               className="border-2 border-[#FF497C] rounded-full w-[40px]"
             >
               <img
-                src={user?.photoURL}
+                src={user?.photoURL || logo}
                 alt={user?.displayName || user?.email}
                 className="w-full h-full rounded-full"
               />
@@ -139,7 +142,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
           <div
             className={`absolute text-center ${
               userOpen ? "block" : "hidden"
-            } flex flex-col text-black justify-center items-center gap-4 rounded shadow-lg bg-white dark:bg-[#120505] px-8 py-4 top-16  z-50`}
+            } flex dark:text-white flex-col text-black justify-center items-center gap-4 rounded shadow-lg bg-white dark:bg-[#120505] px-8 py-4 top-12 z-[100]`}
           >
             <p className="text-lg font-semibold">{user?.displayName}</p>
 
@@ -155,7 +158,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
         {/* Drawer */}
         <button
           onClick={() => setSideOpen(!sideOpen)}
-          className="text-4xl text-[#FF497C] flex items-center md:hidden ml-3"
+          className="text-4xl cursor-pointer text-[#FF497C] flex items-center md:hidden ml-3"
         >
           <i className={`bx bx-${sideOpen ? "x" : "menu"}`}></i>
         </button>
@@ -165,9 +168,12 @@ const Navbar = ({ setDarkMode, darkMode }) => {
       {/* transition-transform transform -translate-x-full */}
       <div
         className={`absolute ${
-          sideOpen ? "" : "hidden"
-        } md:hidden  bg-white shadow-lg  w-56 min-h-screen overflow-y-auto top-0 left-0 ease-in-out duration-300 dark:bg-[#120505] dark:text-white z-50`}
+          sideOpen ? "top-0" : "-top-[1000px]"
+        } md:hidden  bg-white shadow-lg  w-56 h-full  delay-200 ease-in-out  duration-700 dark:bg-[#120505] dark:text-white  z-50`}
       >
+        <div onClick={() => setSideOpen(false)} className="text-right cursor-pointer  pr-4 mt-3 text-red-600 text-xl font-bold">
+          X 
+        </div>
         <div className="p-4">
           <a href="" className=" flex-shrink-0 flex items-center ">
             <img
@@ -185,7 +191,7 @@ const Navbar = ({ setDarkMode, darkMode }) => {
             <div className={`flex flex-col gap-2 top-16 pr-5`}>
               <button className="border-2 mx-auto border-[#FF497C] rounded-full w-[40px]">
                 <img
-                  src={user?.photoURL}
+                  src={user?.photoURL || logo}
                   alt=""
                   className="w-full h-full rounded-full"
                 />

@@ -5,7 +5,6 @@ import ProductCard from "../components/ProductCard";
 const MyCartPage = () => {
   const { user } = useAuth() || {};
   const [products, setProducts] = useState([]);
-
   useEffect(() => {
     if (user?.email) {
       fetch(`https://alpha-vibe-server.vercel.app/myProducts/${user.email}`)
