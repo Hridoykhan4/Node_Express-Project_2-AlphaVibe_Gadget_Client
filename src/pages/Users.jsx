@@ -10,7 +10,7 @@ const Users = () => {
   const [users, setUsers] = useState(loadedUsers || []);
 
   useEffect(() => {
-    fetch(`https://alpha-vibe-server.vercel.app/users?searchUser=${searchUser}`)
+    fetch(`http://localhost:5000/users?searchUser=${searchUser}`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
@@ -18,7 +18,7 @@ const Users = () => {
   }, [searchUser]);
 
   const handleDeleteUser = (userId) => {
-    fetch(`https://alpha-vibe-server.vercel.app/user/${userId}`, {
+    fetch(`http://localhost:5000/user/${userId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

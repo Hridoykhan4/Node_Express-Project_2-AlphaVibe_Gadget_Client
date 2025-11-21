@@ -18,7 +18,14 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    document.querySelector('html').setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
 
   //   Sign Up with Email
   const createNewUser = (email, password) => {
@@ -80,6 +87,8 @@ const AuthProvider = ({ children }) => {
     signInUser,
     handleUpdatePassword,
     updateUserProfile,
+    theme,
+    setTheme
   };
 
   return (

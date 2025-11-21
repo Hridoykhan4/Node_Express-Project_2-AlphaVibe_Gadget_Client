@@ -27,7 +27,7 @@ const RegisterPage = () => {
         const info = { name, email, lastSignIn: lastSignIn };
 
         setLoading(false);
-        fetch(`https://alpha-vibe-server.vercel.app/users`, {
+        fetch(`http://localhost:5000/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -79,11 +79,11 @@ const RegisterPage = () => {
             const lastSignIn = result?.user?.metadata?.lastSignInTime;
             const info = { name, email, lastSignIn: lastSignIn };
 
-            fetch(`https://alpha-vibe-server.vercel.app/users/${email}`)
+            fetch(`http://localhost:5000/users/${email}`)
               .then((res) => res.json())
               .then((data) => {
                 if (!data.exists) {
-                  fetch(`https://alpha-vibe-server.vercel.app/users`, {
+                  fetch(`http://localhost:5000/users`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -144,18 +144,18 @@ const RegisterPage = () => {
                 backgroundOrigin: "content-box",
               }}
             >
-              <p className="font-bold text-3xl mt-20 mx-6">
+              <p className="font-bold dark:text-black text-3xl mt-20 mx-6">
                 We Offer the <br />
                 Best Products
               </p>
             </div>
 
-            <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+            <div className="w-full lg:w-1/2 bg-white dark:bg-slate-900 dark:text-white p-5 rounded-lg lg:rounded-l-none">
               <div className=" p-5 ">
                 <div className="pb-8">
                   <p className="text-3xl font-bold mb-2">I'm New Here</p>
 
-                  <p className="font-semibold text-black/60">
+                  <p className="font-semibold text-black/60 dark:text-white">
                     Enter your details below
                   </p>
                 </div>
@@ -190,15 +190,18 @@ const RegisterPage = () => {
                 </div>
 
                 <div className="my-5 border-b text-center">
-                  <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium  transform translate-y-3/4">
+                  <div className="leading-none dark:text-white px-2 inline-block text-sm text-gray-600 tracking-wide font-medium  transform translate-y-3/4">
                     Or sign In with e-mail
                   </div>
                 </div>
 
-                <form onSubmit={handleSignUp} className="space-y-3 w-full ">
+                <form
+                  onSubmit={handleSignUp}
+                  className="space-y-3 !dark:text-white w-full "
+                >
                   <div>
                     <fieldset className="border border-solid border-gray-300 p-3 w-full rounded">
-                      <legend className=" font-medium text-black/60">
+                      <legend className=" font-medium dark:text-white text-black/60">
                         Name
                       </legend>
                       <input
@@ -212,7 +215,7 @@ const RegisterPage = () => {
 
                   <div>
                     <fieldset className="border border-solid border-gray-300 p-3 w-full rounded">
-                      <legend className=" font-medium text-black/60">
+                      <legend className=" font-medium dark:text-white text-black/60">
                         Email
                       </legend>
                       <input
@@ -225,7 +228,7 @@ const RegisterPage = () => {
                   </div>
                   <div>
                     <fieldset className="border border-solid border-gray-300 p-3 w-full rounded">
-                      <legend className=" font-medium text-black/60">
+                      <legend className=" font-medium dark:text-white text-black/60">
                         Password
                       </legend>
                       <input
@@ -239,11 +242,11 @@ const RegisterPage = () => {
 
                   <div>
                     <fieldset className="border border-solid border-gray-300 p-3 w-full rounded">
-                      <legend className=" font-medium text-black/60">
+                      <legend className=" font-medium dark:text-white text-black/60">
                         ImageURL
                       </legend>
                       <input
-                        type="text"
+                        type="url"
                         name="imageURL"
                         placeholder="imageURL"
                         className="px-4 py-1 w-full focus:outline-0"

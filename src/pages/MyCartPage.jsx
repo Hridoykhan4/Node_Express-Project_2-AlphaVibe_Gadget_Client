@@ -7,16 +7,17 @@ const MyCartPage = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://alpha-vibe-server.vercel.app/myProducts/${user.email}`)
+      fetch(`http://localhost:5000/my-cart?email=${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           setProducts(data);
         });
     }
   }, [user]);
+  console.log(products);
 
   return (
-    <section className="py-12  bg-gray-300/10  ">
+    <section className="py-12 bg-gray-300/10  px-4">
       <div className="gadgetContainer">
         <div className="text-center mb-10">
           <p className="mt-2">Browse all the products you've added</p>
@@ -24,15 +25,25 @@ const MyCartPage = () => {
         </div>
 
         {products.length > 0 ? (
-          <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 transition-all">
+          <div className="grid  sm:grid-cols-2 grid-cols-1 gap-6 transition-all">
             {products.map((p) => (
               <ProductCard
                 key={p._id || p.id}
-                products={products}
+                products={p}
                 setProducts={setProducts}
                 myCard={true}
-                p={p}
-              />
+                p={p.productInfo}
+              >
+                <div>
+                  <div>
+                    <p>Shop: {p?.productInfo?.shopDetails?.["shop-name"]}</p>
+                    <p>Owner: {p?.productInfo?.shopDetails?.ownerName}</p>
+                  </div>
+                  <button className="btn btn-error text-white mt-2 w-full">
+                    Cancel
+                  </button>
+                </div>
+              </ProductCard>
             ))}
           </div>
         ) : (

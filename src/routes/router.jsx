@@ -9,6 +9,11 @@ import RegisterPage from "../pages/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
 import Users from "../pages/Users";
 import UserUpdatePage from "../pages/UserUpdatePage";
+import AllProducts from "../pages/AllProducts";
+import axios from "axios";
+import Spinner from "../components/Spinner";
+import MyPostedProducts from "../pages/MyPostedProducts";
+import ViewCustomerOrders from "../pages/ViewCustomerOrders";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +33,23 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) => {
           if (params.id) {
-            return fetch(
-              `https://alpha-vibe-server.vercel.app/productDetail/${params?.id}`
-            );
+            return fetch(`http://localhost:5000/productDetail/${params?.id}`);
           }
         },
+        hydrateFallbackElement: <Spinner></Spinner>,
+      },
+      {
+        path: "/product/all",
+        element: <AllProducts></AllProducts>,
+        loader: async () => {
+          try {
+            const { data } = await axios("http://localhost:5000/products");
+            return data;
+          } catch (err) {
+            console.log(err);
+          }
+        },
+        hydrateFallbackElement: <Spinner></Spinner>,
       },
       {
         path: "/product/add",
@@ -54,11 +71,14 @@ const router = createBrowserRouter([
         path: "/products/:id",
         element: <ProductDetails></ProductDetails>,
         loader: ({ params }) =>
-          fetch(
-            `https://alpha-vibe-server.vercel.app/productDetail/${params?.id}`
-          ),
-        hydrateFallbackElement: <p>Loading ... </p>,
+          fetch(`http://localhost:5000/productDetail/${params?.id}`),
+        hydrateFallbackElement: <Spinner></Spinner>,
       },
+      {
+        path: "/orders/customers/:id",
+        element: <PrivateRoute><ViewCustomerOrders></ViewCustomerOrders></PrivateRoute>,
+      },
+
       {
         path: "/users",
         element: (
@@ -66,7 +86,7 @@ const router = createBrowserRouter([
             <Users></Users>
           </PrivateRoute>
         ),
-        loader: () => fetch("https://alpha-vibe-server.vercel.app/users") || [],
+        loader: () => fetch("http://localhost:5000/users") || [],
       },
       {
         path: "/userUpdate/:id",
@@ -76,7 +96,13 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://alpha-vibe-server.vercel.app/updateUser/${params.id}`),
+          fetch(`http://localhost:5000/updateUser/${params.id}`),
+        hydrateFallbackElement: <Spinner></Spinner>,
+      },
+
+      {
+        path: "/products/me",
+        element: <MyPostedProducts></MyPostedProducts>,
       },
     ],
   },

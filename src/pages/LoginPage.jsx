@@ -19,11 +19,11 @@ const LoginPage = () => {
         const lastSignIn = result?.user?.metadata?.lastSignInTime;
         const info = { name, email, lastSignIn: lastSignIn };
 
-        fetch(`https://alpha-vibe-server.vercel.app/users`)
+        fetch(`http://localhost:5000/users`)
           .then((res) => res.json())
           .then((data) => {
             if (!data?.exists) {
-              fetch(`https://alpha-vibe-server.vercel.app/users`, {
+              fetch(`http://localhost:5000/users`, {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",
@@ -57,7 +57,7 @@ const LoginPage = () => {
         const lastSignInTime = res?.user?.metadata?.lastSignInTime;
         const logInfo = { email, lastSignInTime };
 
-        fetch(`https://alpha-vibe-server.vercel.app/users`, {
+        fetch(`http://localhost:5000/users`, {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
@@ -115,14 +115,14 @@ const LoginPage = () => {
             </p>
           </div>
 
-          <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+          <div className="w-full lg:w-1/2 bg-white dark:bg-slate-900  dark:text-white p-5 rounded-lg lg:rounded-l-none">
             <div className=" p-5 ">
               <div className="pb-8">
                 <p className="text-3xl font-bold mb-2">
                   Sign in to GigaGadgets.
                 </p>
 
-                <p className="font-semibold text-black/60">
+                <p className="font-semibold dark:text-white text-black/60">
                   Enter your details below
                 </p>
               </div>
@@ -130,7 +130,7 @@ const LoginPage = () => {
               <div className="flex items-center flex-wrap md:flex-nowrap gap-4 mb-4">
                 <button
                   onClick={handleGoogleSignIn}
-                  className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                  className="w-full max-w-md font-bold shadow-sm rounded-lg py-3 dark:bg-black/50 dark:text-white bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                 >
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
@@ -157,7 +157,7 @@ const LoginPage = () => {
               </div>
 
               <div className="my-5 border-b text-center">
-                <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium  transform translate-y-3/4">
+                <div className="leading-none px-2 inline-block text-sm text-gray-600 dark:text-white tracking-wide font-medium  transform translate-y-3/4">
                   Or sign In with e-mail
                 </div>
               </div>
@@ -165,7 +165,7 @@ const LoginPage = () => {
               <form onSubmit={handleLogin} className="space-y-3 w-full ">
                 <div>
                   <fieldset className="border border-solid border-gray-300 p-3 w-full rounded">
-                    <legend className=" font-medium text-black/60">
+                    <legend className="dark:text-white font-medium text-black/60">
                       Email
                     </legend>
                     <input
@@ -178,14 +178,14 @@ const LoginPage = () => {
                 </div>
                 <div>
                   <fieldset className="border border-solid border-gray-300 p-3 w-full rounded">
-                    <legend className=" font-medium text-black">
+                    <legend className="dark:text-white font-medium text-black">
                       Password
                     </legend>
                     <input
                       type="password"
                       name="password"
                       placeholder="password"
-                      className="px-4 py-1 w-full text-black focus:outline-0"
+                      className="px-4 py-1 w-full dark:text-white text-black focus:outline-0"
                     />
                   </fieldset>
                 </div>
