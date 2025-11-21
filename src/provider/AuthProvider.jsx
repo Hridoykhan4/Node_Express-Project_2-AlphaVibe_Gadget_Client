@@ -12,20 +12,23 @@ import {
 } from "firebase/auth";
 import app from "../Firebase/firebase.config";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
-
+const axiosInstance = axios.create({
+  baseURL: `http://localhost:5000`,
+  withCredentials: true,
+});
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.querySelector('html').setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme)
-  }, [theme])
-
+    document.querySelector("html").setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   //   Sign Up with Email
   const createNewUser = (email, password) => {
@@ -45,11 +48,28 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+      // console.log(currentUser);
+      setLoading(true);
+      try {
+        if (currentUser?.email) {
+          const email = { email: currentUser?.email };
+          const { data } = await axiosInstance.post(
+            `http://localhost:5000/jwt`,
+            email
+          );
+          // console.log(data);
+        } else {
+          const { data } = await axiosInstance.post("/logout", {});
+          // console.log(data, "logout");
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
     });
 
     return () => {
@@ -88,7 +108,7 @@ const AuthProvider = ({ children }) => {
     handleUpdatePassword,
     updateUserProfile,
     theme,
-    setTheme
+    setTheme,
   };
 
   return (

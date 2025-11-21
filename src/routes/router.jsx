@@ -76,7 +76,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/orders/customers/:id",
-        element: <PrivateRoute><ViewCustomerOrders></ViewCustomerOrders></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <ViewCustomerOrders></ViewCustomerOrders>
+          </PrivateRoute>
+        ),
       },
 
       {
@@ -102,7 +106,11 @@ const router = createBrowserRouter([
 
       {
         path: "/products/me",
-        element: <MyPostedProducts></MyPostedProducts>,
+        element: (
+          <PrivateRoute>
+            <MyPostedProducts></MyPostedProducts>
+          </PrivateRoute>
+        ),
       },
     ],
   },

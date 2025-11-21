@@ -1,20 +1,35 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import ProductCard from "../components/ProductCard";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const MyCartPage = () => {
   const { user } = useAuth() || {};
   const [products, setProducts] = useState([]);
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/my-cart?email=${user?.email}`)
-        .then((res) => res.json())
-        .then((data) => {
+      axiosSecure(`http://localhost:5000/my-cart?email=${user?.email}`).then(
+        ({ data }) => {
           setProducts(data);
-        });
+        }
+      );
     }
-  }, [user]);
-  console.log(products);
+  }, [user, axiosSecure]);
+  // console.log(products);
+  const handleDelete = async (id, productId) => {
+    const { data } = await axios.delete(`http://localhost:5000/my-cart/${id}`, {
+      data: {
+        productId,
+      },
+    });
+    if(data.deletedCount){
+      setProducts((prev) => prev.filter((p) => p._id !== id));
+      toast.success('Deleted Successfully')
+    }
+  };
 
   return (
     <section className="py-12 bg-gray-300/10  px-4">
@@ -38,8 +53,46 @@ const MyCartPage = () => {
                   <div>
                     <p>Shop: {p?.productInfo?.shopDetails?.["shop-name"]}</p>
                     <p>Owner: {p?.productInfo?.shopDetails?.ownerName}</p>
+                    <p>Status: {p?.orderStatus || 'Not updated Yet'}</p>
                   </div>
-                  <button className="btn btn-error text-white mt-2 w-full">
+                  <button
+                    onClick={() =>
+                      toast((t) => (
+                        <div className="flex items-center gap-4 p-3 rounded-xl bg-base-200 shadow-lg border border-base-300">
+                          <div className="flex flex-col">
+                            <span className="text-base font-semibold text-error">
+                              Are you sure?
+                            </span>
+                            <span className="text-sm dark:text-white opacity-70">
+                              This action cannot be undone.
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-2 ml-auto">
+                            {/* Delete button → triggers your custom logic */}
+                            <button
+                              onClick={() => {
+                                handleDelete(p._id, p.productId);
+                                toast.dismiss(t.id);
+                              }}
+                              className="btn btn-sm btn-error text-white rounded-lg"
+                            >
+                              Delete
+                            </button>
+
+                            {/* Dismiss button */}
+                            <button
+                              onClick={() => toast.dismiss(t.id)}
+                              className="btn btn-sm dark:text-white btn-outline rounded-lg"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ))
+                    }
+                    className="btn btn-error text-white mt-2 w-full rounded-xl shadow-md hover:shadow-lg transition-all"
+                  >
                     Cancel
                   </button>
                 </div>

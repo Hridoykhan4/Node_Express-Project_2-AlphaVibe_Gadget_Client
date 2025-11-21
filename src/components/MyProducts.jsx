@@ -7,7 +7,7 @@ const MyProducts = ({ fetchedPostedProducts }) => {
   const [products, setProducts] = useState(fetchedPostedProducts);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  console.log(products);
+  // console.log(products);
   const handleDelete = () => {
     setShowModal(true);
   };
@@ -45,9 +45,7 @@ const MyProducts = ({ fetchedPostedProducts }) => {
             {/* Action Buttons */}
             <>
               <div>
-                <h2 className="font-semibold ">
-                  Total Orders: ({p?.productCount})
-                </h2>
+                <h2 className="font-semibold ">Total Orders: ({p?.count})</h2>
                 <Link
                   className="link link-error text-lg tracking-wide leading-relaxed"
                   to={`/orders/customers/${p._id}`}

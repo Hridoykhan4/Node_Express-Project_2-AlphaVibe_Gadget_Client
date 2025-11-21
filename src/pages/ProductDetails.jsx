@@ -36,7 +36,6 @@ const ProductDetails = () => {
       },
       productId: _id,
     };
-    console.log(orderInfo);
 
     try {
       const { data } = await axios.post("/cart", orderInfo);
@@ -47,7 +46,12 @@ const ProductDetails = () => {
         console.log("Failed");
       }
     } catch (err) {
-      console.log(err);
+      if (err?.response?.data?.message) {
+        toast.error(
+          err?.response?.data?.message || err?.message || "Try Again"
+        );
+        navigate("/");
+      }
     }
   };
 

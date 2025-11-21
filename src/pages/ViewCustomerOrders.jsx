@@ -12,7 +12,7 @@ const ViewCustomerOrders = () => {
       .catch((err) => console.log(err));
   }, [axios, id]);
 
-  console.log(customers);
+  // console.log(customers);
   const handleUpdateStatus = (e, id) => {
     const orderStatus = e.target.value;
     axios

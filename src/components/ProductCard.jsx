@@ -1,8 +1,6 @@
-import { FaHeart } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ p, myCard, children }) => {
-  console.log(p);
   const { _id, name, brand, price, image, rating } = p || {};
 
   return (
@@ -13,9 +11,6 @@ const ProductCard = ({ p, myCard, children }) => {
           alt={myCard ? p.name : name}
           className="w-48  object-cover"
         />
-        <button className="absolute top-3 right-5 bg-white p-2 rounded-full shadow text-red-500 hover:text-red-600 transition">
-          <FaHeart className="text-xl font-semibold"></FaHeart>
-        </button>
       </div>
 
       <div className="p-5">

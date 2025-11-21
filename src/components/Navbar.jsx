@@ -129,16 +129,14 @@ const Navbar = () => {
             alt="LOGO"
           />
         </Link>
-
-        {/* middle links */}
-        <nav className=" lg:flex items-end font-medium   text-base hidden">
-          <ul className="flex gap-8 items-center ml-4 xl:ml-8 mr-auto w-full justify-center dark:text-white">
-            {links}
-          </ul>
-        </nav>
-
         {/* Right side */}
-        <div className="relative  space-x-2 md:border-l flex items-center justify-end w-full md:w-auto pl-2">
+        <div className="relative ms-auto space-x-2  flex items-center justify-end w-full md:w-auto pl-2">
+          <nav className=" lg:flex items-end font-medium   text-base hidden">
+            <ul className="flex gap-8 items-center ml-4 xl:ml-8 mr-auto w-full justify-center dark:text-white">
+              {links}
+            </ul>
+          </nav>
+
           <label className="toggle text-base-content">
             <input
               checked={theme === "dark"}
@@ -147,7 +145,6 @@ const Navbar = () => {
               value="synthwave"
               className="theme-controller"
             />
-
             <svg
               aria-label="sun"
               xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +168,6 @@ const Navbar = () => {
                 <path d="m19.07 4.93-1.41 1.41"></path>
               </g>
             </svg>
-
             <svg
               aria-label="moon"
               xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +229,7 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setSideOpen(!sideOpen)}
-          className="text-4xl cursor-pointer  text-[#FF497C] flex items-center lg:hidden ml-3"
+          className="text-4xl cursor-pointer  text-[#FF497C] flex items-center lg:hidden ml-2"
         >
           <i className={`bx bx-${sideOpen ? "x" : "menu"}`}></i>
         </button>

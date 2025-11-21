@@ -1,17 +1,17 @@
-import axios from "axios";
-import Spinner from "../components/Spinner";
 import { useState } from "react";
 import { useEffect } from "react";
+import useAxiosSecure from "./useAxiosSecure";
 
 const usePostedProducts = (email) => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
-
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
     if (!email) return;
 
     setLoading(true);
-    axios(`http://localhost:5000/my-products?email=${email}`)
+    // axiosSecure(`http://localhost:5000/my-products?email=${email}`)
+    axiosSecure(`http://localhost:5000/my-products?email=${email}`)
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -21,7 +21,7 @@ const usePostedProducts = (email) => {
         setLoading(false);
         console.log(err);
       });
-  }, [email]);
+  }, [email, axiosSecure]);
 
   return { products, loading };
 };
